@@ -4,7 +4,7 @@ import reducerLogin from "./login/reducerLogin";
 
 const rootReducer = combineReducers({
 
-    auth: reducerLogin,
+    authentification: reducerLogin,
     
 })
 
