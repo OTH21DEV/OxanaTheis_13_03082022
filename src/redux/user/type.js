@@ -1,0 +1,3 @@
+
+export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
+export const EDIT_USER_DATA = "EDIT_USER_DATA";

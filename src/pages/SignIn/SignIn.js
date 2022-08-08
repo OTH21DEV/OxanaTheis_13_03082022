@@ -8,9 +8,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { getTokenFromApi } from "../../redux/login/actionLogin";
 
-
 const SignIn = () => {
-  //getting state (data) from redux store
+  //getting state of Login (data) from redux store
   const state = useSelector((state) => state.authentification);
   const dispatch = useDispatch();
 
