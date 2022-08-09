@@ -34,12 +34,11 @@ export const getTokenFromApi = (userCredentials, rememberMe) => {
         let receivedToken = response.data.body.token;
 
         //check box: remember me, if yes - token saved in local storage, otherwise in session storage
-        if (rememberMe === true ) {
+        if (rememberMe === true) {
           localStorage.setItem("token", `${receivedToken}`);
         } else {
           sessionStorage.setItem("token", `${receivedToken}`);
         }
-   
 
         dispatch(checkLoginSuccess(receivedToken));
       })

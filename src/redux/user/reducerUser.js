@@ -18,6 +18,13 @@ const reducerUser = (state = initialState, action) => {
 
       };
 
+      case EDIT_USER_DATA:
+        return {
+          ...state,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+  
+        };
     default:
       return state;
   }

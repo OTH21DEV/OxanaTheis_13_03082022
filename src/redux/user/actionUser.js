@@ -45,3 +45,33 @@ const getUserDataSuccess = (data) => {
     };
 
   }
+
+  export const updateUserData = (receivedToken) => {
+    return (dispatch) => {
+      axios
+        //post(url, data, config)
+  
+        .put(`http://localhost:3001/api/v1/user/profile`, {receivedToken}, { headers: { 
+          //  "Access-Control-Allow-Origin" : "*",
+        "Authorization": `Bearer ${receivedToken}`,
+        "Content-Type": "application/json" 
+        } })
+  
+        //answer from api: status, message , body
+  
+        .then((response) => {
+          console.log(response);
+        //  let receivedToken = response.data.body.token;
+         // localStorage.setItem("token", `${receivedToken}`);
+  
+         dispatch(editUserData(response.data.body));
+        })
+        .catch((error) => {
+            console.log(error)
+        //  let displayErrorMessage = toast.error(`${error.message}`, { position: toast.POSITION.BOTTOM_RIGHT });
+         // dispatch(checkLoginError(displayErrorMessage));
+  
+        });
+    };
+
+  }

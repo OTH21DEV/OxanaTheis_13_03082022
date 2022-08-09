@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../src/App.css";
 import Header from "../../components/Header/Header";
 import AccountSection from "../../components/AccountSection/AccountSection";
+import EditNameForm from "../../components/EditNameForm/EditNameForm";
 import Footer from "../../components/Footer/Footer";
 import { getUserDataFromApi } from "../../redux/user/actionUser";
 
@@ -39,12 +40,22 @@ const User = () => {
   useEffect(() => {
     if (tokenLocalStorage) {
       dispatch(getUserDataFromApi(tokenLocalStorage));
-    } if (tokenSessionStorage) {
+    }
+    if (tokenSessionStorage) {
       dispatch(getUserDataFromApi(tokenSessionStorage));
     }
   }, [tokenLocalStorage, tokenSessionStorage]);
 
   console.log(state);
+
+  //test edit btn
+  const [editUser, setEditUser] = useState(false);
+
+  function handleClick(e) {
+    setEditUser(true);
+  }
+
+  //
 
   return (
     <>
@@ -56,7 +67,12 @@ const User = () => {
             <br />
             <span>{state.firstName + " " + state.lastName}</span>
           </h1>
-          <button class="edit-button">Edit Name</button>
+          <button class="edit-button" onClick={handleClick}>
+            Edit Name
+          </button>
+
+          {editUser && <EditNameForm />}
+          
         </div>
         <h2 class="sr-only">Accounts</h2>
         <AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance} />

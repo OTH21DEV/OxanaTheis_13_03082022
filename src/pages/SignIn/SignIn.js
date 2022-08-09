@@ -15,7 +15,7 @@ const SignIn = () => {
 
   console.log(state);
 
-  //set user - information will be set from input fields of form
+  //set user - information will be set from input fields of form for dispatch
   const [user, setUser] = useState({
     email: "",
     password: "",
