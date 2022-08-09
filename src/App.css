@@ -186,6 +186,10 @@ body {
   margin-left: 0.25rem;
 }
 
+input[type=checkbox]:checked {
+  background: red;
+  
+}
 .input-wrapper {
   display: flex;
   flex-direction: column;
