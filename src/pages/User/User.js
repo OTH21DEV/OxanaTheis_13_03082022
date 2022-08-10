@@ -28,15 +28,6 @@ const User = () => {
 
   //dispatch - take the userData from Api using received token ( saved in local storage - actionLogin)
 
-  //V1
-  /*
-  useEffect(() => {
-    
-    dispatch(getUserDataFromApi(tokenLocalStorage));
-  }, [tokenLocalStorage]);
-*/
-
-  //V2
   useEffect(() => {
     if (tokenLocalStorage) {
       dispatch(getUserDataFromApi(tokenLocalStorage));
@@ -48,16 +39,16 @@ const User = () => {
 
   console.log(state);
 
-  //test edit btn
+  //set Click of edit btn - default value false
   const [editUser, setEditUser] = useState(false);
 
+  //set Click value
   function handleClick(e) {
     setEditUser(true);
   }
 
   //
-
-  return (
+  const displayMode = !editUser ? (
     <>
       <Header />
       <main class="main bg-dark">
@@ -70,18 +61,55 @@ const User = () => {
           <button class="edit-button" onClick={handleClick}>
             Edit Name
           </button>
-
-          {editUser && <EditNameForm />}
-          
         </div>
         <h2 class="sr-only">Accounts</h2>
         <AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
         <AccountSection title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
         <AccountSection title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
       </main>
+
+      <Footer />
+    </>
+  ) : (
+    <>
+      <Header />
+      <main class="main bg-light">
+        <div class="header">
+          <h1 style={{ color: "black" }}>
+            Welcome back
+            <br />
+          </h1>
+        </div>
+        <EditNameForm firstName={state.firstName} lastName={state.lastName} />
+
+        <h2 class="sr-only">Accounts</h2>
+        <AccountSection
+          style={{ border: "none", boxShadow: "0px 0px 0px 3px rgba(0, 0, 0, 0.07)", borderRadius: "2px" }}
+          btnstyle={{ backgroundColor: "#1F6FEB", border: "none", borderRadius: "5px" }}
+          title={checkSectionTitle}
+          amount={checkAmount}
+          content={availableBalance}
+        />
+        <AccountSection
+          style={{ border: "none", boxShadow: "0px 0px 0px 3px rgba(0, 0, 0, 0.07)", borderRadius: "2px" }}
+          btnstyle={{ backgroundColor: "#1F6FEB", border: "none", borderRadius: "5px" }}
+          title={saveSectionTitle}
+          amount={saveAmount}
+          content={availableBalance}
+        />
+        <AccountSection
+          style={{ border: "none", boxShadow: "0px 0px 0px 3px rgba(0, 0, 0, 0.07)", borderRadius: "2px" }}
+          btnstyle={{ backgroundColor: "#1F6FEB", border: "none", borderRadius: "5px" }}
+          title={cardSectionTitle}
+          amount={cardAmount}
+          content={currentBalance}
+        />
+      </main>
       <Footer />
     </>
   );
+
+  return displayMode;
 };
 
 export default User;

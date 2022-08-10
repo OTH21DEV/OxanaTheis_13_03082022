@@ -7,19 +7,23 @@ const EditNameForm = (props) => {
         firstName: "",
         lastName: "",
       });
+      console.log(props)
   return (
     <form>
-      <div class="input-wrapper">
-        <label for="username">Username</label>
-        <input type="text" placeholder={props.firstName} id="username" value={props.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
+      <div class="edit-wrapper">
+      <div >
+        <label for="user-firstname"></label>
+        <input type="text" placeholder={props.firstName} id="user-firstname" value={props.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
       </div>
-      <div class="input-wrapper">
-        <label for="password">Password</label>
-        <input type="password" placeholder={props.lastName} id="password" value={props.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
+      <div >
+        <label for="user-lastname"></label>
+        <input type="text" placeholder={props.lastName} id="user-lastname" value={props.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
       </div>
-
-      <button class="sign-in-button">Save</button>
-      <button class="sign-in-button">Cancel</button>
+      </div>
+      <div class="btn-edit-wrapper">
+      <button class="save-button">Save</button>
+      <button class="cancel-button">Cancel</button>
+      </div>
     </form>
   );
 };
