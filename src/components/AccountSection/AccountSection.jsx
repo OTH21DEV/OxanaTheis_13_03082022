@@ -1,8 +1,32 @@
 import "../../../src/App.css";
-
-import React from "react";
+//import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+//import ButtonTransactions from "../ButtonTransactions/ButtonTransactions";
+import { useNavigate } from "react-router-dom";
 
 const AccountSection = (props) => {
+  console.log(props.btnId);
+
+  const page = window.location.pathname.split("/")[1];
+  console.log(page);
+
+  let navigate = useNavigate();
+
+  function handleBtn(e) {
+    console.log(e);
+
+    // setHideBtn(true)
+    if (props.btnId === "0") {
+      navigate(`/transactions/bankchecking`);
+    }
+    if (props.btnId === "1") {
+      navigate(`/transactions/banksavings`);
+    }
+    if (props.btnId === "2") {
+      navigate(`/transactions/bankcreditcard`);
+    }
+  }
+
   return (
     <section class="account" style={props.style}>
       <div class="account-content-wrapper">
@@ -11,7 +35,14 @@ const AccountSection = (props) => {
         <p class="account-amount-description">{props.content}</p>
       </div>
       <div class="account-content-wrapper cta">
-        <button style={props.btnstyle} class="transaction-button">View transactions</button>
+        {/* <ButtonTransactions btntype={props.btn}/>*/}
+        {page === "dashboard" ? (
+          <button class="transaction-button" onClick={(e) => handleBtn(e)}>
+            View transactions
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </section>
   );

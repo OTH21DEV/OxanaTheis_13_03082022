@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { getTokenFromApi } from "../../redux/login/actionLogin";
+//import { getUserDataFromApi } from "../../redux/user/actionUser";
 
 const SignIn = () => {
   //getting state of Login (data) from redux store
@@ -21,16 +22,20 @@ const SignIn = () => {
     password: "",
   });
 
+
+  
   //dispatch after form submit providing the user credentials and value of check box 
   const handleForm = (e) => {
     e.preventDefault();
     dispatch(getTokenFromApi(user, isChecked));
+    
   };
 
   //if token received - user is aible to access the dashboard page
   let navigate = useNavigate();
   useEffect(() => {
     if (state.token) {
+    
       navigate(`/dashboard`);
     }
   });
