@@ -10,14 +10,14 @@ function Header() {
   const page = window.location.pathname;
 
   const displayHeader =
-    page === "/signin" ? (
+    page === "/signin" || page === "/" ? (
       <nav class="main-nav">
         <a class="main-nav-logo" href="./index.html">
           <img class="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
           <h1 class="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a class="main-nav-item" href="./sign-in.html">
+          <a class="main-nav-item" href="./signin">
             <i class="fa fa-user-circle"></i>
             Sign In
           </a>
@@ -32,7 +32,7 @@ function Header() {
 
         <div class="wrapper">
           <div class="name-wrapper">
-            <a class="main-nav-item" href="./sign-in.html">
+            <a class="main-nav-item" href="./signin">
               <i class="fa fa-user-circle"></i>
               {state.firstName}
             </a>

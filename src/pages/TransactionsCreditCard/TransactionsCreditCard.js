@@ -19,7 +19,7 @@ const TransactionsCreditCard = () => {
   return (
     <div>
       <Header />
-      <AccountSection title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
+      <AccountSection style={{width:'100%', textAlign:'center'}} title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
     </div>
   );
 };

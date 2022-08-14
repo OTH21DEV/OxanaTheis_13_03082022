@@ -19,7 +19,7 @@ const TransactionsBankSavings = () => {
   return (
     <div>
       <Header />
-      <AccountSection title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
+      <AccountSection style={{width:'100%', textAlign:'center'}} title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
     </div>
   );
 };

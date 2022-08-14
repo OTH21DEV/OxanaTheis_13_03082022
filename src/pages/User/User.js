@@ -74,7 +74,7 @@ const User = () => {
   }
 
   //test btn transaction
-
+/*
   const btn = document.querySelectorAll(".transaction-button");
 
   const btnCheckTransaction = btn[0];
@@ -82,6 +82,7 @@ const User = () => {
   const btnCardTransaction = btn[2];
 
   console.log(btn);
+  */
   //
 
   //display dashboard information

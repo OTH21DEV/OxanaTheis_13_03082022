@@ -253,8 +253,29 @@ body {
   color:#2c3e50;
 }
 
-.hide{
-  display:none;
+.table{
+  width:80%;
+  background-color: white;
+  border-collapse: collapse;
+  margin-bottom:50px;
+
+}
+.table th{
+  font-size:1em;
+  padding:10px 0 ;
+}
+
+.table tbody{
+  border: solid grey 1px
+}
+
+.table tbody tr{
+  height:50px;
+  font-size:1em;
+}
+.table td{
+  border-bottom: solid #98a3b0 1px;
+  text-align:left;
 }
 .wrapper{
   display:flex;

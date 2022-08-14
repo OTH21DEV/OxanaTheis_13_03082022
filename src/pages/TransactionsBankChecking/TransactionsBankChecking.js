@@ -1,42 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../src/App.css";
 import Header from "../../components/Header/Header";
 import AccountSection from "../../components/AccountSection/AccountSection";
+import TransactionTable from "../../components/TransactionTable/TransactionTable";
+import Footer from "../../components/Footer/Footer";
 
 const Transactions = () => {
   const checkSectionTitle = "Argent Bank Checking (x8349)";
   const checkAmount = "$2,082.79";
   const availableBalance = "Available Balance";
 
-  const btn = document.querySelector(".transaction-button");
-  console.log(btn);
 
-  const page = window.location.pathname.split("/")[2];
-  console.log(page);
-
-  if (page === "bankchecking") {
-    btn.style.visibility = "hidden";
-  }
-  /*
-
-    const btn = document.querySelectorAll(".transaction-button");
-    const btnCheckTransaction = btn[0];
-    console.log( btnCheckTransaction )
-    const btnSaveTransaction = btn[1];
-    console.log( btnSaveTransaction )
-    const btnCardTransaction = btn[2];
-    */
-
-  /*
-const test = btnCheckTransaction[0]?(
-    <AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance}/>
-):
-<AccountSection title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
-*/
   return (
     <div>
       <Header />
-      <AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
+      <main style={{ display: "flex", alignItems: "center", flexDirection: "column" }} class="main bg-dark">
+        <AccountSection style={{ width: "100%", textAlign: "center", borderBottom: "solid #98a3b0 1px" }} title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
+        <TransactionTable />
+      </main>
+      <Footer />
     </div>
   );
 };
