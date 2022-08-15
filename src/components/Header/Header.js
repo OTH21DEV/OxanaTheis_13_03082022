@@ -39,7 +39,7 @@ function Header() {
           </div>
 
           <div class="sign-out-wrapper">
-            <a class="main-nav-item" href="./signin">
+            <a class="main-nav-item" href="/">
               <img src={logout} alt="Logout icon" />
               Sign Out
             </a>

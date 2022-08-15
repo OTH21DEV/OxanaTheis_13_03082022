@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import icon_edit from "../../assets/icon-edit.svg";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
 const TransactionTable = () => {
@@ -109,21 +110,35 @@ const TransactionTable = () => {
     },
   ];
 
-  // console.log(data[5].child[0]);
+  //const [isClicked, setIsClicked]=useState(true)
+
   const expandRow = {
     renderer: (row) => (
-      <div>
-        <p>{`This Expand row is belong to rowKey ${row.id}`}</p>
-        <p>{row.child[0].type}</p>
-        <p>{row.child[0].category}</p>
-        <p>{row.child[0].note}</p>
+      <div className="row-expand-info">
+        <p>{`Details: ${row.description}-${row.amount}`}</p>
+        <p contentEditable="true">
+          {row.child[0].type}
+          <img src={icon_edit} alt="Edit"></img>
+        </p>
+        <p contentEditable="true">
+          {row.child[0].note}
+          <img src={icon_edit} alt="Edit"></img>
+        </p>
       </div>
     ),
     showExpandColumn: true,
     expandByColumnOnly: true,
   };
 
-  return <div style={{display:'flex', width:'100%', justifyContent:'center',alignContent:'center'}}><BootstrapTable keyField="id" data={data} columns={columns} expandRow={expandRow} /></div>;
+  return (
+    <BootstrapTable
+      keyField="id"
+      data={data}
+      columns={columns}
+      expandRow={expandRow}
+   
+    />
+  );
 };
 export default TransactionTable;
 
