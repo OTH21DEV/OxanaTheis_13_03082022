@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import error from "../../assets/error.svg";
 
+/**
+ * Displays error page 
+ * @returns {JSX}
+ */
 const Error = () => {
   return (
     <div className="error-wrapper">

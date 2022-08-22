@@ -1,13 +1,19 @@
 import "../../../src/App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/argentBankLogo.png";
 import logout from "../../assets/logout.png";
-import { useSelector} from "react-redux";
-
+import { useSelector } from "react-redux";
 
 function Header() {
   const state = useSelector((state) => state.userInformation);
   const page = window.location.pathname;
+
+  
+  const [matches, setMatches] = useState(window.matchMedia("(min-width:375px) and (max-width:600px)").matches);
+
+  useEffect(() => {
+    window.matchMedia("(min-width: 375px)and (max-width:600px)").addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
 
   const displayHeader =
     page === "/signin" || page === "/" ? (
@@ -39,10 +45,16 @@ function Header() {
           </div>
 
           <div class="sign-out-wrapper">
-            <a class="main-nav-item" href="/">
-              <img src={logout} alt="Logout icon" />
-              Sign Out
-            </a>
+            {matches ? (
+              <a class="main-nav-item" href="/">
+                <img src={logout} alt="Logout icon" />
+              </a>
+            ) : (
+              <a class="main-nav-item" href="/">
+                <img src={logout} alt="Logout icon" />
+                Sign Out
+              </a>
+            )}
           </div>
         </div>
       </nav>

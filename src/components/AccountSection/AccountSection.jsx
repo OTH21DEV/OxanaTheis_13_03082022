@@ -15,7 +15,6 @@ const AccountSection = (props) => {
   function handleBtn(e) {
     console.log(e);
 
-    // setHideBtn(true)
     if (props.btnId === "0") {
       navigate(`/transactions/bankchecking`);
     }

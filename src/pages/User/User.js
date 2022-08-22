@@ -74,7 +74,7 @@ const User = () => {
   }
 
   //test btn transaction
-/*
+  /*
   const btn = document.querySelectorAll(".transaction-button");
 
   const btnCheckTransaction = btn[0];

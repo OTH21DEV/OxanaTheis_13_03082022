@@ -1,9 +1,15 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import { updateUserData } from "../../redux/user/actionUser";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDataFromApi } from "../../redux/user/actionUser";
+import propTypes from "prop-types";
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 const EditNameForm = (props) => {
+  console.log(props)
   const dispatch = useDispatch();
 
   const [userNewName, setUserNewName] = useState({
@@ -17,27 +23,20 @@ const EditNameForm = (props) => {
   const tokenSessionStorage = sessionStorage.getItem("token");
 
   //dipatch - take the userData from Api using received token ( saved in local storage - actionLogin)
-  
-     
-
 
   function handleForm(e) {
     e.preventDefault();
-    
-    if (tokenLocalStorage) {
-      dispatch(updateUserData(tokenLocalStorage,userNewName));
 
+    if (tokenLocalStorage) {
+      dispatch(updateUserData(tokenLocalStorage, userNewName));
     }
     if (tokenSessionStorage) {
-      console.log(tokenSessionStorage)
-      dispatch(updateUserData(tokenSessionStorage,userNewName));
-   
+      console.log(tokenSessionStorage);
+      dispatch(updateUserData(tokenSessionStorage, userNewName));
     }
-    
   }
   const state = useSelector((state) => state.userInformation);
-  console.log(state)
-
+  console.log(state);
 
   return (
     <form onSubmit={(e) => handleForm(e)}>
@@ -52,13 +51,13 @@ const EditNameForm = (props) => {
         </div>
       </div>
       <div class="btn-edit-wrapper">
-        <button type="submit" class="save-button">Save</button>
+        <button type="submit" class="save-button">
+          Save
+        </button>
         <button class="cancel-button">Cancel</button>
       </div>
     </form>
   );
 };
-
-
 
 export default EditNameForm;
