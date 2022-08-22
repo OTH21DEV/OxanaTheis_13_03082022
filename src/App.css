@@ -54,14 +54,13 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
-  display:flex;
+  display: flex;
   align-items: center;
- 
 }
 
-.test{
-  width:100%;
-  height:90px;
+.test {
+  width: 100%;
+  height: 90px;
   background-color: grey;
 }
 .main-nav-item:hover {
@@ -247,64 +246,130 @@ body {
   box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.07);
 }
 
-.main-nav-item img{
-  width:20px;
-  height:20px;
-  color:#2c3e50;
+.main-nav-item img {
+  width: 20px;
+  height: 20px;
+  color: #2c3e50;
 }
 
-.table{
-  width:80%;
+.table {
+  width: 80%;
   background-color: white;
   border-collapse: collapse;
-  margin-bottom:50px;
-
+  margin-bottom: 50px;
 }
-.react-bootstrap-table{
-  display:flex;
+@media all and (min-width: 375px) and (max-width: 600px) {
+  .table{
+    width: 100%;
+  }
+}
+.react-bootstrap-table {
+  display: flex;
   justify-content: center;
 }
-.table th{
-  font-size:1em;
-  padding:10px 0 ;
+.table th {
+  font-size: 1em;
+  padding: 10px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.row-expand-info{
+.row-expand-info {
   text-align: left;
-  margin-left:15px;
+  margin-left: 15px;
 }
 
-.row-expand-info p{
-  display:flex;
+.row-expand-info p {
+  display: flex;
   align-items: center;
 }
 
-.row-expand-info img{
-  padding-left:20px;
-  width:20px
+.row-expand-info img {
+  padding-left: 20px;
+  width: 20px;
 }
 
-.table tbody{
-  border: solid grey 1px
+.table tbody {
+  border: solid grey 1px;
 }
 
-.table tbody tr{
-  height:50px;
-  font-size:1em;
+.table tbody tr {
+  height: 50px;
+  font-size: 1em;
 }
-.table td{
+.table td {
   border-bottom: solid #98a3b0 1px;
-
 }
-.wrapper{
-  display:flex;
+.error-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media all and (min-width: 375px) and (max-width: 600px) {
+  .error-wrapper {
+    flex-direction: column-reverse;
+  }
+}
+.error-wrapper div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 40px;
+}
+@media all and (min-width: 375px) and (max-width: 600px) {
+  .error-wrapper div {
+    margin-left: 20px;
+  }
+}
+
+.error-wrapper h3 {
+  font-size: 1.6em;
+}
+.error-wrapper p {
+  margin: 0 0 40px 0;
+  font-size: 1.4em;
+}
+.error-wrapper a {
+  text-decoration: none;
+  background: #00bc77;
+  width: 140px;
+  height: 40px;
+  font-weight: bold;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  align-self: center;
+}
+
+@media all and (min-width: 375px) and (max-width: 600px) {
+  .error-wrapper a {
+    position: absolute;
+    bottom: 40px;
+    align-self: center;
+  }
+}
+
+.error-image {
+  width: 60%;
+  margin-top: 60px;
+}
+
+@media all and (min-width: 375px) and (max-width: 600px) {
+  .error-image {
+    width: 100%;
+  }
+}
+.wrapper {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.name-wrapper{
-  margin-right:30px;
+.name-wrapper {
+  margin-right: 30px;
 }
-.sign-out-wrapper{
+.sign-out-wrapper {
   display: flex;
   align-items: center;
 }
