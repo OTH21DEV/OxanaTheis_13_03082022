@@ -3,23 +3,19 @@ import "../../../src/App.css";
 import Header from "../../components/Header/Header";
 import AccountSection from "../../components/AccountSection/AccountSection";
 
+/**
+ * Displays user's transaction's details of account's section - bank saving section
+ * @returns {JSX}
+ */
 const TransactionsBankSavings = () => {
-    const saveSectionTitle = "Argent Bank Savings (x6712)";
-    const saveAmount = "$10,928.42";
-    const availableBalance = "Available Balance";
-   
-
-  const btn = document.querySelector(".transaction-button");
-  console.log(btn);
-
-  const page = window.location.pathname.split("/")[2];
-  console.log(page);
-
+  const saveSectionTitle = "Argent Bank Savings (x6712)";
+  const saveAmount = "$10,928.42";
+  const availableBalance = "Available Balance";
 
   return (
     <div>
       <Header />
-      <AccountSection style={{width:'100%', textAlign:'center'}} title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
+      <AccountSection style={{ width: "100%", textAlign: "center" }} title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
     </div>
   );
 };

@@ -1,20 +1,23 @@
 import "../../../src/App.css";
-//import { useNavigate } from "react-router-dom";
 import React from "react";
-//import ButtonTransactions from "../ButtonTransactions/ButtonTransactions";
 import { useNavigate } from "react-router-dom";
-
+import propTypes from "prop-types";
+/*"docs": "jsdoc -c jsdoc.conf.json" */
+/**
+ * Displays the account's section on the user's page
+ * @param {Object} props Account's section information
+ * @param {String} props.title Account's section title
+ * @param {String} props.amount Account's section amount
+ * @param {String} props.content Account's section content
+ * @param {String} props.btnId Account's section button id
+ * @returns {JSX}
+ */
 const AccountSection = (props) => {
-  console.log(props.btnId);
-
   const page = window.location.pathname.split("/")[1];
-  console.log(page);
 
   let navigate = useNavigate();
 
   function handleBtn(e) {
-    console.log(e);
-
     if (props.btnId === "0") {
       navigate(`/transactions/bankchecking`);
     }
@@ -34,7 +37,6 @@ const AccountSection = (props) => {
         <p class="account-amount-description">{props.content}</p>
       </div>
       <div class="account-content-wrapper cta">
-        {/* <ButtonTransactions btntype={props.btn}/>*/}
         {page === "dashboard" ? (
           <button class="transaction-button" onClick={(e) => handleBtn(e)}>
             View transactions
@@ -47,4 +49,12 @@ const AccountSection = (props) => {
   );
 };
 
+AccountSection.propTypes = {
+  props: propTypes.shape({
+    title: propTypes.string.isRequired,
+    amount: propTypes.string.isRequired,
+    content: propTypes.string.isRequired,
+    btnId: propTypes.string.isRequired,
+  }),
+};
 export default AccountSection;

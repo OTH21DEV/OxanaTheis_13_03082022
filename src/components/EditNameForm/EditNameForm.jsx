@@ -3,11 +3,7 @@ import { updateUserData } from "../../redux/user/actionUser";
 import { useSelector, useDispatch } from "react-redux";
 import propTypes from "prop-types";
 
-/**
- * 
- * @param {*} props 
- * @returns 
- */
+
 const EditNameForm = (props) => {
   console.log(props)
   const dispatch = useDispatch();

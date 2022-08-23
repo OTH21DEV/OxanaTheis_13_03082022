@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pages/User/User.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountSection">AccountSection</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FeatureItem">FeatureItem</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Slogan">Slogan</a></li><li><a href="global.html#Transactions">Transactions</a></li><li><a href="global.html#TransactionsBankSavings">TransactionsBankSavings</a></li><li><a href="global.html#TransactionsCreditCard">TransactionsCreditCard</a></li><li><a href="global.html#TransactionTable">TransactionTable</a></li><li><a href="global.html#User">User</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pages/User/User.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "../../../src/App.css";
+import Header from "../../components/Header/Header";
+import AccountSection from "../../components/AccountSection/AccountSection";
+import Footer from "../../components/Footer/Footer";
+import { getUserDataFromApi } from "../../redux/user/actionUser";
+import { updateUserData } from "../../redux/user/actionUser";
+
+
+/**
+ * Displays user page 
+ * @returns {JSX}
+ */
+const User = () => {
+  const checkSectionTitle = "Argent Bank Checking (x8349)";
+  const saveSectionTitle = "Argent Bank Savings (x6712)";
+  const cardSectionTitle = "Argent Bank Credit Card (x8349)";
+  const checkAmount = "$2,082.79";
+  const saveAmount = "$10,928.42";
+  const cardAmount = "$184.30";
+  const availableBalance = "Available Balance";
+  const currentBalance = "Current Balance";
+
+  //getting state of User (data) from redux store
+  const state = useSelector((state) => state.userInformation);
+  const dispatch = useDispatch();
+
+  //received token while signin(actionLogin)
+  const tokenLocalStorage = localStorage.getItem("token");
+  const tokenSessionStorage = sessionStorage.getItem("token");
+
+  //dispatch - take the userData from Api using received token ( saved in local storage - actionLogin)
+  useEffect(() => {
+    if (tokenLocalStorage) {
+      dispatch(getUserDataFromApi(tokenLocalStorage));
+    }
+    if (tokenSessionStorage) {
+      dispatch(getUserDataFromApi(tokenSessionStorage));
+    }
+  }, [tokenLocalStorage, tokenSessionStorage]);
+
+  console.log(state);
+
+  //set Click of edit btn - default value false
+  const [editUser, setEditUser] = useState(false);
+
+  //set mode edit while click
+  function handleClick(e) {
+    setEditUser(true);
+  }
+
+  //set new constant to provide to dispatch while update user data
+  const [userNewName, setUserNewName] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  //dispatch update after form submit and set edit mode on false
+  function handleForm(e) {
+    e.preventDefault();
+
+    if (tokenLocalStorage) {
+      dispatch(updateUserData(tokenLocalStorage, userNewName));
+    }
+    if (tokenSessionStorage) {
+      console.log(tokenSessionStorage);
+      dispatch(updateUserData(tokenSessionStorage, userNewName));
+    }
+    setEditUser(false);
+  }
+
+  console.log(editUser);
+
+  //cancel btn -edit Form
+  function cancelEditUserName() {
+    setEditUser(false);
+  }
+
+
+  //display dashboard information
+  const displayMode = !editUser ? (
+    &lt;>
+      &lt;Header />
+      &lt;main class="main bg-dark">
+        &lt;div class="header">
+          &lt;h1>
+            Welcome back
+            &lt;br />
+            &lt;span>{state.firstName + " " + state.lastName}&lt;/span>
+          &lt;/h1>
+          &lt;button class="edit-button" onClick={handleClick}>
+            Edit Name
+          &lt;/button>
+        &lt;/div>
+        &lt;h2 class="sr-only">Accounts&lt;/h2>
+        &lt;AccountSection btnId={"0"} title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
+        &lt;AccountSection btnId={"1"} title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
+        &lt;AccountSection btnId={"2"} title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
+      &lt;/main>
+
+      &lt;Footer />
+    &lt;/>
+  ) : (
+    &lt;>
+      &lt;Header name={state.firstName} />
+      &lt;main class="main bg-dark">
+        &lt;div class="header">
+          &lt;h1>
+            Welcome back
+            &lt;br />
+          &lt;/h1>
+        &lt;/div>
+        {/* &lt;EditNameForm firstName={state.firstName} lastName={state.lastName} />*/}
+
+        &lt;form onSubmit={(e) => handleForm(e)}>
+          &lt;div class="edit-wrapper">
+            &lt;div>
+              &lt;label for="user-firstname">&lt;/label>
+              &lt;input type="text" placeholder={state.firstName} id="user-firstname" value={userNewName.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
+            &lt;/div>
+            &lt;div>
+              &lt;label for="user-lastname">&lt;/label>
+              &lt;input type="text" placeholder={state.lastName} id="user-lastname" value={userNewName.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
+            &lt;/div>
+          &lt;/div>
+          &lt;div class="btn-edit-wrapper">
+            &lt;button type="submit" class="save-button">
+              Save
+            &lt;/button>
+            &lt;button class="cancel-button" onClick={cancelEditUserName}>
+              Cancel
+            &lt;/button>
+          &lt;/div>
+        &lt;/form>
+
+        &lt;h2 class="sr-only">Accounts&lt;/h2>
+        &lt;AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
+        &lt;AccountSection title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
+        &lt;AccountSection title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
+      &lt;/main>
+      &lt;Footer />
+    &lt;/>
+  );
+
+  return displayMode;
+};
+
+export default User;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Tue Aug 23 2022 17:41:45 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

@@ -7,8 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { getTokenFromApi } from "../../redux/login/actionLogin";
-//import { getUserDataFromApi } from "../../redux/user/actionUser";
 
+/**
+ *Displays sign in page
+ * @returns {JSX}
+ */
 const SignIn = () => {
   //getting state of Login (data) from redux store
   const state = useSelector((state) => state.authentification);
@@ -22,33 +25,23 @@ const SignIn = () => {
     password: "",
   });
 
-
-  
-  //dispatch after form submit providing the user credentials and value of check box 
+  //dispatch after form submit providing the user credentials and value of check box
   const handleForm = (e) => {
     e.preventDefault();
     dispatch(getTokenFromApi(user, isChecked));
-    
   };
 
   //if token received - user is aible to access the dashboard page
   let navigate = useNavigate();
   useEffect(() => {
     if (state.token) {
-    
       navigate(`/dashboard`);
     }
   });
 
-
-
   //set value of remember me - checkbox
-
-  const [isChecked, setIsChecked] = useState(false)
-    console.log(isChecked)
-
-
-
+  const [isChecked, setIsChecked] = useState(false);
+  console.log(isChecked);
 
   return (
     <>
@@ -67,7 +60,15 @@ const SignIn = () => {
               <input type="password" id="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
             </div>
             <div class="input-remember">
-              <input   value="" type="checkbox" id="remember-me" onChange={() => {setIsChecked(!isChecked);localStorage.setItem('remember-me',`${!isChecked}`)}} />
+              <input
+                value=""
+                type="checkbox"
+                id="remember-me"
+                onChange={() => {
+                  setIsChecked(!isChecked);
+                  localStorage.setItem("remember-me", `${!isChecked}`);
+                }}
+              />
               <label for="remember-me">Remember me</label>
             </div>
 

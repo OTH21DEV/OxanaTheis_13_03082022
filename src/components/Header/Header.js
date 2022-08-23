@@ -4,6 +4,10 @@ import logo from "../../assets/argentBankLogo.png";
 import logout from "../../assets/logout.png";
 import { useSelector } from "react-redux";
 
+/**
+ * Displays header
+ * @returns {JSX}
+ */
 function Header() {
   const state = useSelector((state) => state.userInformation);
   const page = window.location.pathname;

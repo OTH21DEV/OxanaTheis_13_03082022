@@ -3,11 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../src/App.css";
 import Header from "../../components/Header/Header";
 import AccountSection from "../../components/AccountSection/AccountSection";
-//import EditNameForm from "../../components/EditNameForm/EditNameForm";
 import Footer from "../../components/Footer/Footer";
 import { getUserDataFromApi } from "../../redux/user/actionUser";
 import { updateUserData } from "../../redux/user/actionUser";
 
+
+/**
+ * Displays user page 
+ * @returns {JSX}
+ */
 const User = () => {
   const checkSectionTitle = "Argent Bank Checking (x8349)";
   const saveSectionTitle = "Argent Bank Savings (x6712)";
@@ -73,17 +77,6 @@ const User = () => {
     setEditUser(false);
   }
 
-  //test btn transaction
-  /*
-  const btn = document.querySelectorAll(".transaction-button");
-
-  const btnCheckTransaction = btn[0];
-  const btnSaveTransaction = btn[1];
-  const btnCardTransaction = btn[2];
-
-  console.log(btn);
-  */
-  //
 
   //display dashboard information
   const displayMode = !editUser ? (

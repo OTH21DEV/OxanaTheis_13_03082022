@@ -7,6 +7,11 @@ import icon_chat from "../../assets/icon-chat.png";
 import icon_money from "../../assets/icon-money.png";
 import icon_security from "../../assets/icon-security.png";
 
+/**
+ * Displays main page
+ * @returns {JSX}
+ */
+
 function Home() {
   const chatTitle = "You are our #1 priority";
   const moneyTitle = "More savings means higher rates";

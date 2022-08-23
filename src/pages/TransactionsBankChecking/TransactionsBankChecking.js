@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../src/App.css";
 import Header from "../../components/Header/Header";
 import AccountSection from "../../components/AccountSection/AccountSection";
 import TransactionTable from "../../components/TransactionTable/TransactionTable";
 import Footer from "../../components/Footer/Footer";
 
+/**
+ * Displays user's transaction's details of account's section - bank checking section
+ * @returns {JSX}
+ */
 const Transactions = () => {
   const checkSectionTitle = "Argent Bank Checking (x8349)";
   const checkAmount = "$2,082.79";
   const availableBalance = "Available Balance";
-
 
   return (
     <div>

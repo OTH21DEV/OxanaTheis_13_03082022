@@ -1,7 +1,10 @@
 import "../../../src/App.css";
-
 import React from 'react'
 
+/**
+ * Displays slogan on the main page 
+ * @returns {JSX}
+ */
 const Slogan = () => {
   return (
     <div class="hero">
