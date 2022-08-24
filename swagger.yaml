@@ -114,11 +114,18 @@ paths:
           description: Internal Server Error
   /transactions:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: User Transactions by month
       description: API for access to user's transactions by month
       parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
         - in: query
           name: month
           description: The number of month to get transactions for
@@ -138,17 +145,26 @@ paths:
             $ref: '#/definitions/Transactions'
         '400':
           description: "Invalid Fields"
+        '401':
+          description: "Unauthorized"
         '404':
           description: "Transactions not found" 
         '500':
           description: "Internal Server Error"
   /transactions/{id}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Find user transaction by ID
       description: Returns a single transaction
       parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
         - in: path
           name: id
           description: The transaction ID
@@ -163,16 +179,25 @@ paths:
             $ref: '#/definitions/Transactions'
         '400':
           description: "Invalid user transaction ID supplied"
+        '401':
+          description: "Unauthorized"
         '404':
           description: "Transaction not found" 
         '500':
           description: "Internal Server Error"
-    put:
+    patch:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Updates the details of transaction 
       description: ""
       parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
         - in: path
           name: id
           description: The transaction ID that needs to be updated
@@ -183,14 +208,16 @@ paths:
           description: Updated transaction object. This can only be possible for nested details object - categories and note
           required: true
           schema:
-            $ref: '#/definitions/Transactions'    
+            $ref: '#/definitions/TransactionId'   
       produces:
         - application/json
       responses:
         '400':
           description: "Invalid user transaction ID supplied"
-        '404':
-          description: "Transaction not found" 
+        '401':
+          description: "Unauthorized"
+        '500':
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -248,12 +275,9 @@ definitions:
   Transactions:
     type: object
     properties:
-      month:
-        type: integer
-        description: month of user's transaction
-      year:
-        type: integer
-        description: year of user's transaction
+      date:
+        type: string
+        description: date (month and year) of user's transaction
       description:
         type: string
         description: name of user's transaction
@@ -265,7 +289,7 @@ definitions:
   DetailsInfo:
     type: object
     properties: 
-      name: 
+      type: 
         type: string
         description: type of user's transaction 
       categories: 
@@ -274,6 +298,13 @@ definitions:
       note: 
         type: string
         description: user's notes
+  TransactionId:
+    type: object
+    properties: 
+      categories: 
+        type: string
+        description: categories of user's transaction 
+      note: 
+        type: string
+        description: user's notes
           
-        
-      

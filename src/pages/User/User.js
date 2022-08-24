@@ -30,6 +30,9 @@ const User = () => {
   const tokenLocalStorage = localStorage.getItem("token");
   const tokenSessionStorage = sessionStorage.getItem("token");
 
+
+ 
+
   //dispatch - take the userData from Api using received token ( saved in local storage - actionLogin)
   useEffect(() => {
     if (tokenLocalStorage) {
@@ -38,6 +41,7 @@ const User = () => {
     if (tokenSessionStorage) {
       dispatch(getUserDataFromApi(tokenSessionStorage));
     }
+    
   }, [tokenLocalStorage, tokenSessionStorage]);
 
   console.log(state);

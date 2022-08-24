@@ -3,6 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 //we receive the token(from fetchApi response) if userCredentials(come from SignIn page while submit form) are confirmed by backend
+/**
+ * 
+ * @param {*} token 
+ * @returns 
+ */
 const checkLoginSuccess = (token) => {
   return {
     type: CHECK_LOGIN_SUCCESS,

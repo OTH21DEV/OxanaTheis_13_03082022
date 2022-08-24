@@ -19,6 +19,10 @@ function Header() {
     window.matchMedia("(min-width: 375px)and (max-width:600px)").addEventListener("change", (e) => setMatches(e.matches));
   }, []);
 
+  function handleClick(e){
+   localStorage.clear()
+   sessionStorage.clear()
+  }
   const displayHeader =
     page === "/signin" || page === "/" ? (
       <nav class="main-nav">
@@ -50,11 +54,11 @@ function Header() {
 
           <div class="sign-out-wrapper">
             {matches ? (
-              <a class="main-nav-item" href="/">
+              <a class="main-nav-item" href="/" onClick={(e)=> handleClick(e)}>
                 <img src={logout} alt="Logout icon" />
               </a>
             ) : (
-              <a class="main-nav-item" href="/">
+              <a class="main-nav-item" href="/" onClick={(e)=> handleClick(e)}>
                 <img src={logout} alt="Logout icon" />
                 Sign Out
               </a>

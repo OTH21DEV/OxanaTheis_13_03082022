@@ -36,7 +36,8 @@ const SignIn = () => {
   useEffect(() => {
     if (state.token) {
       navigate(`/dashboard`);
-    }
+    } 
+   
   });
 
   //set value of remember me - checkbox
