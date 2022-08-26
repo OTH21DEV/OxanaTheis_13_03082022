@@ -1,7 +1,9 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
+
 const PrivateRoutes = () => {
+
   const tokenLocalStorage = localStorage.getItem("token");
   const tokenSessionStorage = sessionStorage.getItem("token");
 

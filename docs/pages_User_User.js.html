@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountSection">AccountSection</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#errorDisplay">errorDisplay</a></li><li><a href="global.html#FeatureItem">FeatureItem</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Slogan">Slogan</a></li><li><a href="global.html#Transactions">Transactions</a></li><li><a href="global.html#TransactionsBankSavings">TransactionsBankSavings</a></li><li><a href="global.html#TransactionsCreditCard">TransactionsCreditCard</a></li><li><a href="global.html#TransactionTable">TransactionTable</a></li><li><a href="global.html#User">User</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountSection">AccountSection</a></li><li><a href="global.html#checkLoginError">checkLoginError</a></li><li><a href="global.html#checkLoginSuccess">checkLoginSuccess</a></li><li><a href="global.html#editUserData">editUserData</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FeatureItem">FeatureItem</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getUserDataFromApi">getUserDataFromApi</a></li><li><a href="global.html#getUserDataSuccess">getUserDataSuccess</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#reducerLogin">reducerLogin</a></li><li><a href="global.html#reducerUser">reducerUser</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Slogan">Slogan</a></li><li><a href="global.html#Transactions">Transactions</a></li><li><a href="global.html#TransactionsBankSavings">TransactionsBankSavings</a></li><li><a href="global.html#TransactionsCreditCard">TransactionsCreditCard</a></li><li><a href="global.html#TransactionTable">TransactionTable</a></li><li><a href="global.html#updateUserData">updateUserData</a></li><li><a href="global.html#User">User</a></li></ul>
 </nav>
 
 <div id="main">
@@ -50,7 +50,7 @@ import AccountSection from "../../components/AccountSection/AccountSection";
 import Footer from "../../components/Footer/Footer";
 import { getUserDataFromApi } from "../../redux/user/actionUser";
 import { updateUserData } from "../../redux/user/actionUser";
-import { errorDisplay } from "../../utils/ErrorDisplay";
+
 /**
  * Displays user page
  * @returns {JSX}
@@ -105,7 +105,6 @@ const User = () => {
    * @param {String} message Message is a text content for each error case
    * @param {boolean} valid
    */
-  /*
   const errorDisplay = (tag, message, valid) => {
     const spanMsg = document.querySelector("." + tag + "-formData > span");
     const inputField = document.querySelector("." + tag + "-formData");
@@ -118,7 +117,7 @@ const User = () => {
       spanMsg.textContent = message;
     }
   };
-*/
+
   /**
    * Controls the input fields and displays an error message
    * @param {String} type Type is a given name of input field
@@ -126,7 +125,7 @@ const User = () => {
    * @param {HTMLElement} element Element is the input field
    */
   const nameChecker = (type, value, element) => {
-    if (value.length > 0 &amp;&amp; (value.length &lt; 3 || value.length > 20)) {
+    if (value.length &lt; 3 || value.length > 20) {
       errorDisplay(type, type + " must contain 3-20 characters");
 
       element.style.border = "3px solid red";
@@ -146,8 +145,8 @@ const User = () => {
    * @param {*} e
    */
   function handleInput(e) {
+    console.log(e.target);
     e.preventDefault();
-
     if (e.target.id === "firstname-user") {
       nameChecker("firstname", e.target.value, document.getElementById("firstname-user"));
     }
@@ -157,18 +156,22 @@ const User = () => {
     }
   }
 
+  /**
+   * Onsubmit event , controls the input fields and dispatch actions 
+   */
   function handleForm(e) {
     let isValid = true;
     e.preventDefault();
-    if (!userNewName.firstName) {
+
+    if (e.target[0].value.length &lt; 3 || e.target[0].value.length > 20 || !e.target[0].value.match(/^[a-zA-Z0-9_.-]*$/)) {
       isValid = false;
-      errorDisplay("firstname", "Please complete this field");
+      errorDisplay("firstname", "Please complete this field as requested");
       document.getElementById("firstname-user").style.border = "3px solid red";
     }
 
-    if (!userNewName.lastName) {
+    if (e.target[1].value.length &lt; 3 || e.target[1].value.length > 20 || !e.target[1].value.match(/^[a-zA-Z0-9_.-]*$/)) {
       isValid = false;
-      errorDisplay("lastname", "Please complete this field");
+      errorDisplay("lastname", "Please complete this field as requested");
       document.getElementById("lastname-user").style.border = "3px solid red";
     }
 
@@ -184,7 +187,9 @@ const User = () => {
 
   // console.log(editUser);
 
-  //cancel btn -edit Form
+  /**
+   * Cancel the edit Form while click button 'cancel'
+   */
   function cancelEditUserName() {
     setEditUser(false);
   }
@@ -222,7 +227,7 @@ const User = () => {
             &lt;br />
           &lt;/h1>
         &lt;/div>
-        {/* &lt;EditNameForm firstName={state.firstName} lastName={state.lastName} />*/}
+     
 
         &lt;form onSubmit={(e) => handleForm(e)}>
           &lt;div class="edit-wrapper">
@@ -293,7 +298,7 @@ export default User;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Aug 25 2022 21:41:13 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Aug 26 2022 17:59:38 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

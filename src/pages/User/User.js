@@ -61,7 +61,6 @@ const User = () => {
    * @param {String} message Message is a text content for each error case
    * @param {boolean} valid
    */
-
   const errorDisplay = (tag, message, valid) => {
     const spanMsg = document.querySelector("." + tag + "-formData > span");
     const inputField = document.querySelector("." + tag + "-formData");

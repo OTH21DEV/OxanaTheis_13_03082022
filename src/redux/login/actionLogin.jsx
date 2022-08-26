@@ -1,15 +1,25 @@
 import { CHECK_LOGIN_SUCCESS, CHECK_LOGIN_ERROR } from "./type";
 import axios from "axios";
 import { toast } from "react-toastify";
+import propTypes from "prop-types";
 
-//we receive the token(from fetchApi response) if userCredentials(come from SignIn page while submit form) are confirmed by backend
-
+/**
+ *
+ * @param {String} token
+ * @returns {Object} Token is received from fetchApi response if userCredentials(come from SignIn page while submit form) are confirmed by backend
+ */
 const checkLoginSuccess = (token) => {
   return {
     type: CHECK_LOGIN_SUCCESS,
     payload: token,
   };
 };
+
+/**
+ *
+ * @param {String} error
+ * @returns {Object}
+ */
 const checkLoginError = (error) => {
   return {
     type: CHECK_LOGIN_ERROR,
@@ -17,10 +27,15 @@ const checkLoginError = (error) => {
   };
 };
 
-//userCredentials(come from SignIn page while submit form, dispatch getTokenFromApi happen there)
-//rememberMe - checkBox value (default value false, onChange becomes true -in SignIn page, saved in local storage)
-//if confirmed - dispatch checkLoginSuccess otherwise checkLoginError
-
+/**
+ *
+ * Gets token from API, if user confirmed - dispatch checkLoginSuccess otherwise checkLoginError
+ * @param {Object} userCredentials UserCredentials are the user email and password from input fields of form (page SignIn).Dispatch getTokenFromApi happen there
+ * @param {String} userCredentials.email Email from input field
+ * @param {String} userCredentials.password Password from input field
+ * @param {Boolean} rememberMe Default value is false, onChange becomes true -in SignIn page , value saved in local storage
+ * @returns {Object}
+ */
 export const getTokenFromApi = (userCredentials, rememberMe) => {
   return (dispatch) => {
     axios
@@ -44,8 +59,25 @@ export const getTokenFromApi = (userCredentials, rememberMe) => {
         dispatch(checkLoginSuccess(receivedToken));
       })
       .catch((error) => {
-        let displayErrorMessage = toast.error(`${error.message}`, { position: toast.POSITION.BOTTOM_RIGHT });
+        let displayErrorMessage = toast.error(`${error.response.data.message}`, { position: toast.POSITION.BOTTOM_RIGHT });
+
         dispatch(checkLoginError(displayErrorMessage));
       });
   };
+};
+
+checkLoginSuccess.propTypes = {
+  token: propTypes.string,
+};
+
+checkLoginError.propTypes = {
+  error: propTypes.string,
+};
+
+getTokenFromApi.propTypes = {
+  userCredentials: propTypes.shape({
+    email: propTypes.string.isRequired,
+    password: propTypes.string.isRequired,
+  }),
+  rememberMe: propTypes.bool.isRequired,
 };

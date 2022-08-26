@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>pages/Home/Home.jsx - Documentation</title>
+    <title>redux/user/reducerUser.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">pages/Home/Home.jsx</h1>
+    <h1 class="page-title">redux/user/reducerUser.js</h1>
     
 
     
@@ -42,46 +42,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import "../../../src/App.css";
-import Slogan from "../../components/Slogan/Slogan";
-import FeatureItem from "../../components/FeatureItem/FeatureItem";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import icon_chat from "../../assets/icon-chat.png";
-import icon_money from "../../assets/icon-money.png";
-import icon_security from "../../assets/icon-security.png";
+            <pre class="prettyprint source linenums"><code>import { GET_USER_DATA_SUCCESS, EDIT_USER_DATA } from "./type";
+import propTypes from "prop-types";
+
+const initialState = {
+  email: "",
+  firstName: "",
+  lastName: "",
+};
 
 /**
- * Displays main page
- * @returns {JSX}
+ * Reducer for user actions
+ * @param {Object} state State is equal to initial state
+ * @param {Object} action User actions
+ * @param {String} action.type type of user action
+ * @param {Object} action.payload user data (received or to update)
+ * @param {String} action.payload.email user email (received or to update)
+ * @param {String} action.payload.firstName user firstname (received or to update)
+ * @param {String} action.payload.lastName user lastname (received or to update)
+ * @returns {Object} new State
  */
+const reducerUser = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        email: action.payload.email,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+      };
 
-function Home() {
-  const chatTitle = "You are our #1 priority";
-  const moneyTitle = "More savings means higher rates";
-  const securityTitle = "Security you can trust";
-  const chatContent = "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.";
-  const moneyContent = "The more you save with us, the higher your interest rate will be!";
-  const securityContent = "We use top of the line encryption to make sure your data and money is always safe.";
+    case EDIT_USER_DATA:
+      return {
+        ...state,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+      };
+    default:
+      return state;
+  }
+};
 
-  return (
-    &lt;body>
-      &lt;Header>&lt;/Header>
-      &lt;main>
-        &lt;Slogan />
-        &lt;section class="features">
-          &lt;h2 class="sr-only">Features&lt;/h2>
-          &lt;FeatureItem icon={icon_chat} title={chatTitle} content={chatContent}>&lt;/FeatureItem>
-          &lt;FeatureItem icon={icon_money} title={moneyTitle} content={moneyContent}>&lt;/FeatureItem>
-          &lt;FeatureItem icon={icon_security} title={securityTitle} content={securityContent}>&lt;/FeatureItem>
-        &lt;/section>
-      &lt;/main>
-      &lt;Footer>&lt;/Footer>
-    &lt;/body>
-  );
-}
-
-export default Home;
+reducerUser.propTypes = {
+  state: propTypes.object.isRequired,
+  action: propTypes.shape({
+    type: propTypes.string.isRequired,
+    payload: propTypes.shape({
+      email: propTypes.string.isRequired,
+      firstName: propTypes.string.isRequired,
+      lastName: propTypes.string.isRequired,
+    }),
+  }),
+};
+export default reducerUser;
 </code></pre>
         </article>
     </section>

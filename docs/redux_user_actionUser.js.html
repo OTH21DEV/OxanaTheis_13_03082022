@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>redux/login/actionLogin.jsx - Documentation</title>
+    <title>redux/user/actionUser.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">redux/login/actionLogin.jsx</h1>
+    <h1 class="page-title">redux/user/actionUser.js</h1>
     
 
     
@@ -42,88 +42,119 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { CHECK_LOGIN_SUCCESS, CHECK_LOGIN_ERROR } from "./type";
+            <pre class="prettyprint source linenums"><code>import { GET_USER_DATA_SUCCESS, EDIT_USER_DATA } from "./type";
 import axios from "axios";
-import { toast } from "react-toastify";
 import propTypes from "prop-types";
 
 /**
- *
- * @param {String} token
- * @returns {Object} Token is received from fetchApi response if userCredentials(come from SignIn page while submit form) are confirmed by backend
+ * Get user data action
+ * @param {Object} data Contains user data information from API
+ * @returns {Object}
  */
-const checkLoginSuccess = (token) => {
+const getUserDataSuccess = (data) => {
   return {
-    type: CHECK_LOGIN_SUCCESS,
-    payload: token,
+    type: GET_USER_DATA_SUCCESS,
+    payload: data,
   };
 };
 
 /**
- *
- * @param {String} error
+ * Update user data action
+ * @param {Object} data Conatins updated user information after form submit
  * @returns {Object}
  */
-const checkLoginError = (error) => {
+const editUserData = (data) => {
   return {
-    type: CHECK_LOGIN_ERROR,
-    payload: error,
+    type: EDIT_USER_DATA,
+    payload: data,
   };
 };
 
 /**
- *
- * Gets token from API, if user confirmed - dispatch checkLoginSuccess otherwise checkLoginError
- * @param {Object} userCredentials UserCredentials are the user email and password from input fields of form (page SignIn).Dispatch getTokenFromApi happen there
- * @param {String} userCredentials.email Email from input field
- * @param {String} userCredentials.password Password from input field
- * @param {Boolean} rememberMe Default value is false, onChange becomes true -in SignIn page , value saved in local storage
+ * Get user data from API - need the user token
+ * @param {String} receivedToken Token which is received while login(action login - checkLoginSuccess).Will be taken from local storage (if remember me) or session storage (user page)
  * @returns {Object}
  */
-export const getTokenFromApi = (userCredentials, rememberMe) => {
+export const getUserDataFromApi = (receivedToken) => {
   return (dispatch) => {
     axios
       //post(url, data, config)
 
-      .post(`http://localhost:3001/api/v1/user/login`, JSON.stringify(userCredentials, rememberMe), { headers: { "Content-Type": "application/json" } })
-
-      //answer from api: status, message , body
-
-      .then((response) => {
-        //console.log(response);
-        let receivedToken = response.data.body.token;
-
-        //check box: remember me, if yes - token saved in local storage, otherwise in session storage
-        if (rememberMe === true) {
-          localStorage.setItem("token", `${receivedToken}`);
-        } else {
-          sessionStorage.setItem("token", `${receivedToken}`);
+      .post(
+        `http://localhost:3001/api/v1/user/profile`,
+        { receivedToken },
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+            "Content-Type": "application/json",
+          },
         }
+      )
 
-        dispatch(checkLoginSuccess(receivedToken));
+      //response: status, message , body (user data)
+      .then((response) => {
+        console.log(response.data.body);
+
+        dispatch(getUserDataSuccess(response.data.body));
       })
       .catch((error) => {
-        let displayErrorMessage = toast.error(`${error.response.data.message}`, { position: toast.POSITION.BOTTOM_RIGHT });
-
-        dispatch(checkLoginError(displayErrorMessage));
+        console.log(error);
       });
   };
 };
 
-checkLoginSuccess.propTypes = {
-  token: propTypes.string,
+/**
+ * Update user data after form submit (user page) with new user information
+ * @param {String} receivedToken Token which is received while login(action login - checkLoginSuccess)
+ * @param {Object} updatedUserName Contains updated user data (get after form submit on user page)
+ * @param {String} updatedUserName.firstName Contains updated user firstname (get after form submit on user page)
+ * @param {String} updatedUserName.lastName Contains updated user lastname (get after form submit on user page)
+ * @returns {Object}
+ */
+export const updateUserData = (receivedToken, updatedUserName) => {
+  console.log(updatedUserName);
+  return (dispatch) => {
+    axios
+      //post(url, data, config)
+
+      .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
+        headers: {
+          Authorization: `Bearer ${receivedToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+
+      //answer from api: status, message , body
+
+      .then((response) => {
+        console.log(response);
+
+        dispatch(editUserData(updatedUserName));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 };
 
-checkLoginError.propTypes = {
-  error: propTypes.string,
+getUserDataSuccess.propTypes = {
+  data: propTypes.object.isRequired,
 };
 
-getTokenFromApi.propTypes = {
-  userCredentials: propTypes.shape({
-    email: propTypes.string.isRequired,
-    password: propTypes.string.isRequired,
+editUserData.propTypes = {
+  data: propTypes.object.isRequired,
+};
+
+getUserDataFromApi.propTypes = {
+  receivedToken: propTypes.string.isRequired,
+};
+
+updateUserData.propTypes = {
+  receivedToken: propTypes.string.isRequired,
+  updatedUserName: propTypes.shape({
+    firstName: propTypes.string.isRequired,
+    lastName: propTypes.string.isRequired,
   }),
-  rememberMe: propTypes.bool.isRequired,
 };
 </code></pre>
         </article>

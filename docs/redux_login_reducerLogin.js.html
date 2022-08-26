@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>pages/Home/Home.jsx - Documentation</title>
+    <title>redux/login/reducerLogin.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">pages/Home/Home.jsx</h1>
+    <h1 class="page-title">redux/login/reducerLogin.js</h1>
     
 
     
@@ -42,46 +42,53 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import "../../../src/App.css";
-import Slogan from "../../components/Slogan/Slogan";
-import FeatureItem from "../../components/FeatureItem/FeatureItem";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import icon_chat from "../../assets/icon-chat.png";
-import icon_money from "../../assets/icon-money.png";
-import icon_security from "../../assets/icon-security.png";
+            <pre class="prettyprint source linenums"><code>import { CHECK_LOGIN_SUCCESS, CHECK_LOGIN_ERROR } from "./type";
+import propTypes from "prop-types";
+
+const initialState = {
+  token: "",
+  isLogged: false,
+  error: "",
+};
 
 /**
- * Displays main page
- * @returns {JSX}
+ * Reducer for Login actions
+ * @param {Object} state State is equal to initial state
+ * @param {Object} action Login actions
+ * @param {String} action.type type of login action
+ * @param {String} action.payload received token
+ * @returns {Object} new State
  */
+const reducerLogin = (state = initialState, action) => {
+  switch (action.type) {
+    case CHECK_LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLogged: true,
+        token: action.payload,
+        error: "",
+      };
+    case CHECK_LOGIN_ERROR:
+      return {
+        ...state,
+        isLogged: false,
+        token: "",
+        error: action.payload,
+      };
 
-function Home() {
-  const chatTitle = "You are our #1 priority";
-  const moneyTitle = "More savings means higher rates";
-  const securityTitle = "Security you can trust";
-  const chatContent = "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.";
-  const moneyContent = "The more you save with us, the higher your interest rate will be!";
-  const securityContent = "We use top of the line encryption to make sure your data and money is always safe.";
+    default:
+      return state;
+  }
+};
+reducerLogin.propTypes = {
+  state: propTypes.object.isRequired,
+  action: propTypes.shape({
+    type: propTypes.string.isRequired,
+    payload: propTypes.string.isRequired,
+  }),
+};
 
-  return (
-    &lt;body>
-      &lt;Header>&lt;/Header>
-      &lt;main>
-        &lt;Slogan />
-        &lt;section class="features">
-          &lt;h2 class="sr-only">Features&lt;/h2>
-          &lt;FeatureItem icon={icon_chat} title={chatTitle} content={chatContent}>&lt;/FeatureItem>
-          &lt;FeatureItem icon={icon_money} title={moneyTitle} content={moneyContent}>&lt;/FeatureItem>
-          &lt;FeatureItem icon={icon_security} title={securityTitle} content={securityContent}>&lt;/FeatureItem>
-        &lt;/section>
-      &lt;/main>
-      &lt;Footer>&lt;/Footer>
-    &lt;/body>
-  );
-}
-
-export default Home;
+export default reducerLogin;
 </code></pre>
         </article>
     </section>

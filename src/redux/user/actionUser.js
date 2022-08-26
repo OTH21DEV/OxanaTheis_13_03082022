@@ -1,7 +1,12 @@
 import { GET_USER_DATA_SUCCESS, EDIT_USER_DATA } from "./type";
 import axios from "axios";
+import propTypes from "prop-types";
 
-//data- will receive initial user information from API
+/**
+ * Get user data action
+ * @param {Object} data Contains user data information from API
+ * @returns {Object}
+ */
 const getUserDataSuccess = (data) => {
   return {
     type: GET_USER_DATA_SUCCESS,
@@ -9,7 +14,11 @@ const getUserDataSuccess = (data) => {
   };
 };
 
-//data-will take updated user information after form submit
+/**
+ * Update user data action
+ * @param {Object} data Conatins updated user information after form submit
+ * @returns {Object}
+ */
 const editUserData = (data) => {
   return {
     type: EDIT_USER_DATA,
@@ -17,8 +26,11 @@ const editUserData = (data) => {
   };
 };
 
-//Get user data -need previous received token when check login information(action login)
-//will be taken from local storage (if remember me) or session storage (user page)
+/**
+ * Get user data from API - need the user token
+ * @param {String} receivedToken Token which is received while login(action login - checkLoginSuccess).Will be taken from local storage (if remember me) or session storage (user page)
+ * @returns {Object}
+ */
 export const getUserDataFromApi = (receivedToken) => {
   return (dispatch) => {
     axios
@@ -37,7 +49,7 @@ export const getUserDataFromApi = (receivedToken) => {
 
       //response: status, message , body (user data)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.body);
 
         dispatch(getUserDataSuccess(response.data.body));
       })
@@ -47,11 +59,16 @@ export const getUserDataFromApi = (receivedToken) => {
   };
 };
 
-//update user data after form submit (user page) with new user information
-//need previous received token when check login information(action login) and
-//updated user data (get after form submit on user page)
-
+/**
+ * Update user data after form submit (user page) with new user information
+ * @param {String} receivedToken Token which is received while login(action login - checkLoginSuccess)
+ * @param {Object} updatedUserName Contains updated user data (get after form submit on user page)
+ * @param {String} updatedUserName.firstName Contains updated user firstname (get after form submit on user page)
+ * @param {String} updatedUserName.lastName Contains updated user lastname (get after form submit on user page)
+ * @returns {Object}
+ */
 export const updateUserData = (receivedToken, updatedUserName) => {
+  console.log(updatedUserName);
   return (dispatch) => {
     axios
       //post(url, data, config)
@@ -74,4 +91,24 @@ export const updateUserData = (receivedToken, updatedUserName) => {
         console.log(error);
       });
   };
+};
+
+getUserDataSuccess.propTypes = {
+  data: propTypes.object.isRequired,
+};
+
+editUserData.propTypes = {
+  data: propTypes.object.isRequired,
+};
+
+getUserDataFromApi.propTypes = {
+  receivedToken: propTypes.string.isRequired,
+};
+
+updateUserData.propTypes = {
+  receivedToken: propTypes.string.isRequired,
+  updatedUserName: propTypes.shape({
+    firstName: propTypes.string.isRequired,
+    lastName: propTypes.string.isRequired,
+  }),
 };
