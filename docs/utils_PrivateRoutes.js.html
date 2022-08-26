@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/Slogan/Slogan.jsx - Documentation</title>
+    <title>utils/PrivateRoutes.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/Slogan/Slogan.jsx</h1>
+    <h1 class="page-title">utils/PrivateRoutes.js</h1>
     
 
     
@@ -42,28 +42,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import "../../../src/App.css";
-import React from 'react'
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
 
 /**
- * Displays slogan on the main page 
+ * Renders the child's route's element if there is a token otherwise redirects to signin page
  * @returns {JSX}
  */
-const Slogan = () => {
-  return (
-    &lt;div class="hero">
-    &lt;section class="hero-content">
-      &lt;h2 class="sr-only">Promoted Content&lt;/h2>
-      &lt;p class="subtitle">No fees.&lt;/p>
-      &lt;p class="subtitle">No minimum deposit.&lt;/p>
-      &lt;p class="subtitle">High interest rates.&lt;/p>
-      &lt;p class="text">Open a savings account with Argent Bank today!&lt;/p>
-    &lt;/section>
-  &lt;/div>
-  )
-}
+const PrivateRoutes = () => {
+  const tokenLocalStorage = localStorage.getItem("token");
+  const tokenSessionStorage = sessionStorage.getItem("token");
 
-export default Slogan</code></pre>
+  return tokenLocalStorage || tokenSessionStorage ? &lt;Outlet /> : &lt;Navigate to="/signin" />;
+};
+
+export default PrivateRoutes;
+</code></pre>
         </article>
     </section>
 

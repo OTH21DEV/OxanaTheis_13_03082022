@@ -25,8 +25,10 @@ const User = () => {
   const state = useSelector((state) => state.userInformation);
   const dispatch = useDispatch();
 
-  //received token while signin(actionLogin)
+  /** @constant {String} tokenLocalStorage received token while signin(actionLogin) */
   const tokenLocalStorage = localStorage.getItem("token");
+  
+  /** @constant {String} tokenSessionStorage received token while signin(actionLogin) */
   const tokenSessionStorage = sessionStorage.getItem("token");
 
   //dispatch - take the userData from Api using received token ( saved in local storage - actionLogin)
@@ -113,7 +115,7 @@ const User = () => {
   }
 
   /**
-   * Onsubmit event , controls the input fields and dispatch actions 
+   * Onsubmit event , controls the input fields and dispatch actions
    */
   function handleForm(e) {
     let isValid = true;
@@ -183,7 +185,6 @@ const User = () => {
             <br />
           </h1>
         </div>
-     
 
         <form onSubmit={(e) => handleForm(e)}>
           <div class="edit-wrapper">

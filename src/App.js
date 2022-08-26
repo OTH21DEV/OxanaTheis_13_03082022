@@ -11,7 +11,6 @@ import Error from "./components/Error/Error";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
-
   return (
     <Provider store={store}>
       <div className="App">
