@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountSection">AccountSection</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FeatureItem">FeatureItem</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Slogan">Slogan</a></li><li><a href="global.html#Transactions">Transactions</a></li><li><a href="global.html#TransactionsBankSavings">TransactionsBankSavings</a></li><li><a href="global.html#TransactionsCreditCard">TransactionsCreditCard</a></li><li><a href="global.html#TransactionTable">TransactionTable</a></li><li><a href="global.html#User">User</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountSection">AccountSection</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#errorDisplay">errorDisplay</a></li><li><a href="global.html#FeatureItem">FeatureItem</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Slogan">Slogan</a></li><li><a href="global.html#Transactions">Transactions</a></li><li><a href="global.html#TransactionsBankSavings">TransactionsBankSavings</a></li><li><a href="global.html#TransactionsCreditCard">TransactionsCreditCard</a></li><li><a href="global.html#TransactionTable">TransactionTable</a></li><li><a href="global.html#User">User</a></li></ul>
 </nav>
 
 <div id="main">
@@ -50,10 +50,9 @@ import AccountSection from "../../components/AccountSection/AccountSection";
 import Footer from "../../components/Footer/Footer";
 import { getUserDataFromApi } from "../../redux/user/actionUser";
 import { updateUserData } from "../../redux/user/actionUser";
-
-
+import { errorDisplay } from "../../utils/ErrorDisplay";
 /**
- * Displays user page 
+ * Displays user page
  * @returns {JSX}
  */
 const User = () => {
@@ -100,27 +99,95 @@ const User = () => {
     lastName: "",
   });
 
-  //dispatch update after form submit and set edit mode on false
-  function handleForm(e) {
+  /**
+   * Displays error message for each input field
+   * @param {String} tag  Tag is a part of the name class of div element in the form (includes input )
+   * @param {String} message Message is a text content for each error case
+   * @param {boolean} valid
+   */
+  /*
+  const errorDisplay = (tag, message, valid) => {
+    const spanMsg = document.querySelector("." + tag + "-formData > span");
+    const inputField = document.querySelector("." + tag + "-formData");
+
+    if (!valid) {
+      inputField.classList.add("error");
+      spanMsg.textContent = message;
+    } else {
+      inputField.classList.remove("error");
+      spanMsg.textContent = message;
+    }
+  };
+*/
+  /**
+   * Controls the input fields and displays an error message
+   * @param {String} type Type is a given name of input field
+   * @param {String} value Value of input field
+   * @param {HTMLElement} element Element is the input field
+   */
+  const nameChecker = (type, value, element) => {
+    if (value.length > 0 &amp;&amp; (value.length &lt; 3 || value.length > 20)) {
+      errorDisplay(type, type + " must contain 3-20 characters");
+
+      element.style.border = "3px solid red";
+    } else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
+      errorDisplay(type, type + "  must not contain special characters");
+
+      element.style.border = "3px solid red";
+    } else {
+      errorDisplay(type, "", true);
+      errorDisplay.textContent = "";
+      element.style.border = "3px solid green";
+    }
+  };
+
+  /**
+   * Onchange event of input , controls the fields and displays error message
+   * @param {*} e
+   */
+  function handleInput(e) {
     e.preventDefault();
 
-    if (tokenLocalStorage) {
-      dispatch(updateUserData(tokenLocalStorage, userNewName));
+    if (e.target.id === "firstname-user") {
+      nameChecker("firstname", e.target.value, document.getElementById("firstname-user"));
     }
-    if (tokenSessionStorage) {
-      console.log(tokenSessionStorage);
-      dispatch(updateUserData(tokenSessionStorage, userNewName));
+
+    if (e.target.id === "lastname-user") {
+      nameChecker("lastname", e.target.value, document.getElementById("lastname-user"));
     }
-    setEditUser(false);
   }
 
-  console.log(editUser);
+  function handleForm(e) {
+    let isValid = true;
+    e.preventDefault();
+    if (!userNewName.firstName) {
+      isValid = false;
+      errorDisplay("firstname", "Please complete this field");
+      document.getElementById("firstname-user").style.border = "3px solid red";
+    }
+
+    if (!userNewName.lastName) {
+      isValid = false;
+      errorDisplay("lastname", "Please complete this field");
+      document.getElementById("lastname-user").style.border = "3px solid red";
+    }
+
+    if (isValid === true) {
+      if (tokenLocalStorage) {
+        dispatch(updateUserData(tokenLocalStorage, userNewName));
+      } else if (tokenSessionStorage) {
+        dispatch(updateUserData(tokenSessionStorage, userNewName));
+      }
+      setEditUser(false);
+    }
+  }
+
+  // console.log(editUser);
 
   //cancel btn -edit Form
   function cancelEditUserName() {
     setEditUser(false);
   }
-
 
   //display dashboard information
   const displayMode = !editUser ? (
@@ -159,13 +226,34 @@ const User = () => {
 
         &lt;form onSubmit={(e) => handleForm(e)}>
           &lt;div class="edit-wrapper">
-            &lt;div>
-              &lt;label for="user-firstname">&lt;/label>
-              &lt;input type="text" placeholder={state.firstName} id="user-firstname" value={userNewName.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
+            &lt;div className="firstname-formData">
+              &lt;label for="firstname-user">&lt;/label>
+              &lt;input
+                type="text"
+                placeholder={state.firstName}
+                id="firstname-user"
+                value={userNewName.firstName}
+                onChange={(e) => {
+                  setUserNewName({ ...userNewName, firstName: e.target.value });
+                  handleInput(e);
+                }}
+              />
+              &lt;span class="error">&lt;/span>
             &lt;/div>
-            &lt;div>
-              &lt;label for="user-lastname">&lt;/label>
-              &lt;input type="text" placeholder={state.lastName} id="user-lastname" value={userNewName.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
+            &lt;div className="lastname-formData">
+              &lt;label for="lastname-user">&lt;/label>
+              &lt;input
+                type="text"
+                placeholder={state.lastName}
+                id="lastname-user"
+                value={userNewName.lastName}
+                onChange={(e) => {
+                  setUserNewName({ ...userNewName, lastName: e.target.value });
+                  handleInput(e);
+                }}
+              />
+
+              &lt;span class="error">&lt;/span>
             &lt;/div>
           &lt;/div>
           &lt;div class="btn-edit-wrapper">
@@ -205,7 +293,7 @@ export default User;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Tue Aug 23 2022 17:41:45 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Aug 25 2022 21:41:13 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

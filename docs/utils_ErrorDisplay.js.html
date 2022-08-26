@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/Footer/Footer.js - Documentation</title>
+    <title>utils/ErrorDisplay.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/Footer/Footer.js</h1>
+    <h1 class="page-title">utils/ErrorDisplay.js</h1>
     
 
     
@@ -42,21 +42,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import "../../../src/App.css";
+            <pre class="prettyprint source linenums"><code>  /**
+   * Displays error message for each input field
+   * @param {String} tag  Tag is a part of the name class of div element in the form (includes input )
+   * @param {String} message Message is a text content for each error case
+   * @param {boolean} valid
+   */
+   export const errorDisplay = (tag, message, valid) => {
+    const spanMsg = document.querySelector("." + tag + "-formData > span");
+    const inputField = document.querySelector("." + tag + "-formData");
 
-/**
- * Displays footer
- * @returns {JSX}
- */
-function Footer() {
-  return (
-    &lt;footer class="footer">
-      &lt;p class="footer-text">Copyright 2020 Argent Bank&lt;/p>
-    &lt;/footer>
-  );
-}
-
-export default Footer;
+    if (!valid) {
+      inputField.classList.add("error");
+      spanMsg.textContent = message;
+    } else {
+      inputField.classList.remove("error");
+      spanMsg.textContent = message;
+    }
+  };
 </code></pre>
         </article>
     </section>

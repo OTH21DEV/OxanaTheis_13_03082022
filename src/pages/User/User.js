@@ -7,9 +7,8 @@ import Footer from "../../components/Footer/Footer";
 import { getUserDataFromApi } from "../../redux/user/actionUser";
 import { updateUserData } from "../../redux/user/actionUser";
 
-
 /**
- * Displays user page 
+ * Displays user page
  * @returns {JSX}
  */
 const User = () => {
@@ -30,9 +29,6 @@ const User = () => {
   const tokenLocalStorage = localStorage.getItem("token");
   const tokenSessionStorage = sessionStorage.getItem("token");
 
-
- 
-
   //dispatch - take the userData from Api using received token ( saved in local storage - actionLogin)
   useEffect(() => {
     if (tokenLocalStorage) {
@@ -41,7 +37,6 @@ const User = () => {
     if (tokenSessionStorage) {
       dispatch(getUserDataFromApi(tokenSessionStorage));
     }
-    
   }, [tokenLocalStorage, tokenSessionStorage]);
 
   console.log(state);
@@ -60,27 +55,101 @@ const User = () => {
     lastName: "",
   });
 
-  //dispatch update after form submit and set edit mode on false
-  function handleForm(e) {
-    e.preventDefault();
+  /**
+   * Displays error message for each input field
+   * @param {String} tag  Tag is a part of the name class of div element in the form (includes input )
+   * @param {String} message Message is a text content for each error case
+   * @param {boolean} valid
+   */
 
-    if (tokenLocalStorage) {
-      dispatch(updateUserData(tokenLocalStorage, userNewName));
+  const errorDisplay = (tag, message, valid) => {
+    const spanMsg = document.querySelector("." + tag + "-formData > span");
+    const inputField = document.querySelector("." + tag + "-formData");
+
+    if (!valid) {
+      inputField.classList.add("error");
+      spanMsg.textContent = message;
+    } else {
+      inputField.classList.remove("error");
+      spanMsg.textContent = message;
     }
-    if (tokenSessionStorage) {
-      console.log(tokenSessionStorage);
-      dispatch(updateUserData(tokenSessionStorage, userNewName));
+  };
+
+  /**
+   * Controls the input fields and displays an error message
+   * @param {String} type Type is a given name of input field
+   * @param {String} value Value of input field
+   * @param {HTMLElement} element Element is the input field
+   */
+  const nameChecker = (type, value, element) => {
+    if (value.length < 3 || value.length > 20) {
+      errorDisplay(type, type + " must contain 3-20 characters");
+
+      element.style.border = "3px solid red";
+    } else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
+      errorDisplay(type, type + "  must not contain special characters");
+
+      element.style.border = "3px solid red";
+    } else {
+      errorDisplay(type, "", true);
+      errorDisplay.textContent = "";
+      element.style.border = "3px solid green";
     }
-    setEditUser(false);
+  };
+
+  /**
+   * Onchange event of input , controls the fields and displays error message
+   * @param {*} e
+   */
+  function handleInput(e) {
+    console.log(e.target);
+    e.preventDefault();
+    if (e.target.id === "firstname-user") {
+      nameChecker("firstname", e.target.value, document.getElementById("firstname-user"));
+    }
+
+    if (e.target.id === "lastname-user") {
+      nameChecker("lastname", e.target.value, document.getElementById("lastname-user"));
+    }
   }
 
-  console.log(editUser);
+  /**
+   * Onsubmit event , controls the input fields and dispatch actions 
+   */
+  function handleForm(e) {
+    let isValid = true;
+    e.preventDefault();
 
-  //cancel btn -edit Form
+    if (e.target[0].value.length < 3 || e.target[0].value.length > 20 || !e.target[0].value.match(/^[a-zA-Z0-9_.-]*$/)) {
+      isValid = false;
+      errorDisplay("firstname", "Please complete this field as requested");
+      document.getElementById("firstname-user").style.border = "3px solid red";
+    }
+
+    if (e.target[1].value.length < 3 || e.target[1].value.length > 20 || !e.target[1].value.match(/^[a-zA-Z0-9_.-]*$/)) {
+      isValid = false;
+      errorDisplay("lastname", "Please complete this field as requested");
+      document.getElementById("lastname-user").style.border = "3px solid red";
+    }
+
+    if (isValid === true) {
+      if (tokenLocalStorage) {
+        dispatch(updateUserData(tokenLocalStorage, userNewName));
+      } else if (tokenSessionStorage) {
+        dispatch(updateUserData(tokenSessionStorage, userNewName));
+      }
+      setEditUser(false);
+    }
+  }
+
+  // console.log(editUser);
+
+  /**
+   * Cancel the edit Form while click button 'cancel'
+   */
   function cancelEditUserName() {
     setEditUser(false);
   }
-
 
   //display dashboard information
   const displayMode = !editUser ? (
@@ -115,17 +184,38 @@ const User = () => {
             <br />
           </h1>
         </div>
-        {/* <EditNameForm firstName={state.firstName} lastName={state.lastName} />*/}
+     
 
         <form onSubmit={(e) => handleForm(e)}>
           <div class="edit-wrapper">
-            <div>
-              <label for="user-firstname"></label>
-              <input type="text" placeholder={state.firstName} id="user-firstname" value={userNewName.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
+            <div className="firstname-formData">
+              <label for="firstname-user"></label>
+              <input
+                type="text"
+                placeholder={state.firstName}
+                id="firstname-user"
+                value={userNewName.firstName}
+                onChange={(e) => {
+                  setUserNewName({ ...userNewName, firstName: e.target.value });
+                  handleInput(e);
+                }}
+              />
+              <span class="error"></span>
             </div>
-            <div>
-              <label for="user-lastname"></label>
-              <input type="text" placeholder={state.lastName} id="user-lastname" value={userNewName.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
+            <div className="lastname-formData">
+              <label for="lastname-user"></label>
+              <input
+                type="text"
+                placeholder={state.lastName}
+                id="lastname-user"
+                value={userNewName.lastName}
+                onChange={(e) => {
+                  setUserNewName({ ...userNewName, lastName: e.target.value });
+                  handleInput(e);
+                }}
+              />
+
+              <span class="error"></span>
             </div>
           </div>
           <div class="btn-edit-wrapper">

@@ -213,6 +213,7 @@ body {
 .edit-wrapper {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .btn-edit-wrapper {
   display: flex;
@@ -232,9 +233,9 @@ body {
   box-shadow: 0px 0px 0px 3px rgb(156, 194, 252);
 }
 
-#user-firstname,
-#user-lastname {
-  width: 220px;
+#firstname-user,
+#lastname-user {
+  width: 244px;
   height: 40px;
   border: none;
   border-radius: 3px;
@@ -244,8 +245,20 @@ body {
   color: #c9d1d9;
   padding-left: 15px;
   box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.07);
+  margin-bottom:7px
 }
 
+.firstname-formData, .lastname-formData{
+display:flex;
+flex-direction: column;
+}
+
+.error {
+  font-size: 0.9rem;
+text-align: left;
+  color: red;
+  visibility: visible;
+}
 .main-nav-item img {
   width: 20px;
   height: 20px;
