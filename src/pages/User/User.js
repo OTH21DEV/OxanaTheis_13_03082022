@@ -41,7 +41,7 @@ const User = () => {
     }
   }, [tokenLocalStorage, tokenSessionStorage]);
 
-  console.log(state);
+ 
 
   //set Click of edit btn - default value false
   const [editUser, setEditUser] = useState(false);
@@ -103,7 +103,7 @@ const User = () => {
    * @param {*} e
    */
   function handleInput(e) {
-    console.log(e.target);
+   
     e.preventDefault();
     if (e.target.id === "firstname-user") {
       nameChecker("firstname", e.target.value, document.getElementById("firstname-user"));
@@ -143,7 +143,6 @@ const User = () => {
     }
   }
 
-  // console.log(editUser);
 
   /**
    * Cancel the edit Form while click button 'cancel'
@@ -156,18 +155,18 @@ const User = () => {
   const displayMode = !editUser ? (
     <>
       <Header />
-      <main class="main bg-dark">
-        <div class="header">
+      <main className="main bg-dark">
+        <div className="header">
           <h1>
             Welcome back
             <br />
             <span>{state.firstName + " " + state.lastName}</span>
           </h1>
-          <button class="edit-button" onClick={handleClick}>
+          <button className="edit-button" onClick={handleClick}>
             Edit Name
           </button>
         </div>
-        <h2 class="sr-only">Accounts</h2>
+        <h2 className="sr-only">Accounts</h2>
         <AccountSection btnId={"0"} title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
         <AccountSection btnId={"1"} title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
         <AccountSection btnId={"2"} title={cardSectionTitle} amount={cardAmount} content={currentBalance} />
@@ -178,8 +177,8 @@ const User = () => {
   ) : (
     <>
       <Header name={state.firstName} />
-      <main class="main bg-dark">
-        <div class="header">
+      <main className="main bg-dark">
+        <div className="header">
           <h1>
             Welcome back
             <br />
@@ -187,7 +186,7 @@ const User = () => {
         </div>
 
         <form onSubmit={(e) => handleForm(e)}>
-          <div class="edit-wrapper">
+          <div className="edit-wrapper">
             <div className="firstname-formData">
               <label for="firstname-user"></label>
               <input
@@ -200,7 +199,7 @@ const User = () => {
                   handleInput(e);
                 }}
               />
-              <span class="error"></span>
+              <span className="error"></span>
             </div>
             <div className="lastname-formData">
               <label for="lastname-user"></label>
@@ -215,20 +214,20 @@ const User = () => {
                 }}
               />
 
-              <span class="error"></span>
+              <span className="error"></span>
             </div>
           </div>
-          <div class="btn-edit-wrapper">
-            <button type="submit" class="save-button">
+          <div className="btn-edit-wrapper">
+            <button type="submit" className="save-button">
               Save
             </button>
-            <button class="cancel-button" onClick={cancelEditUserName}>
+            <button className="cancel-button" onClick={cancelEditUserName}>
               Cancel
             </button>
           </div>
         </form>
 
-        <h2 class="sr-only">Accounts</h2>
+        <h2 className="sr-only">Accounts</h2>
         <AccountSection title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
         <AccountSection title={saveSectionTitle} amount={saveAmount} content={availableBalance} />
         <AccountSection title={cardSectionTitle} amount={cardAmount} content={currentBalance} />

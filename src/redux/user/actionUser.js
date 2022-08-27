@@ -49,8 +49,6 @@ export const getUserDataFromApi = (receivedToken) => {
 
       //response: status, message , body (user data)
       .then((response) => {
-        console.log(response.data.body);
-
         dispatch(getUserDataSuccess(response.data.body));
       })
       .catch((error) => {
@@ -68,7 +66,6 @@ export const getUserDataFromApi = (receivedToken) => {
  * @returns {Object}
  */
 export const updateUserData = (receivedToken, updatedUserName) => {
-  console.log(updatedUserName);
   return (dispatch) => {
     axios
       //post(url, data, config)
@@ -83,7 +80,7 @@ export const updateUserData = (receivedToken, updatedUserName) => {
       //answer from api: status, message , body
 
       .then((response) => {
-        console.log(response);
+       // console.log(response);
 
         dispatch(editUserData(updatedUserName));
       })

@@ -21,19 +21,19 @@ function Home() {
   const securityContent = "We use top of the line encryption to make sure your data and money is always safe.";
 
   return (
-    <body>
+    <>
       <Header></Header>
       <main>
         <Slogan />
-        <section class="features">
-          <h2 class="sr-only">Features</h2>
+        <section className="features">
+          <h2 className="sr-only">Features</h2>
           <FeatureItem icon={icon_chat} title={chatTitle} content={chatContent}></FeatureItem>
           <FeatureItem icon={icon_money} title={moneyTitle} content={moneyContent}></FeatureItem>
           <FeatureItem icon={icon_security} title={securityTitle} content={securityContent}></FeatureItem>
         </section>
       </main>
       <Footer></Footer>
-    </body>
+    </>
   );
 }
 

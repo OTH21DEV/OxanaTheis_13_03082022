@@ -17,7 +17,6 @@ const SignIn = () => {
   const state = useSelector((state) => state.authentification);
   const dispatch = useDispatch();
 
-  console.log(state);
 
   //set user - information will be set from input fields of form for dispatch
   const [user, setUser] = useState({
@@ -42,25 +41,24 @@ const SignIn = () => {
 
   //set value of remember me - checkbox
   const [isChecked, setIsChecked] = useState(false);
-  console.log(isChecked);
 
   return (
     <>
       <Header></Header>
-      <main class="main bg-dark">
-        <section class="sign-in-content">
-          <i class="fa fa-user-circle sign-in-icon"></i>
+      <main className="main bg-dark">
+        <section className="sign-in-content">
+          <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
           <form onSubmit={(e) => handleForm(e)}>
-            <div class="input-wrapper">
-              <label for="username">Username</label>
+            <div className="input-wrapper">
+              <label htmlFor="username">Username</label>
               <input type="text" id="username" value={user.name} onChange={(e) => setUser({ ...user, email: e.target.value })} />
             </div>
-            <div class="input-wrapper">
-              <label for="password">Password</label>
+            <div className="input-wrapper">
+              <label htmlFor="password">Password</label>
               <input type="password" id="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
             </div>
-            <div class="input-remember">
+            <div className="input-remember">
               <input
                 value=""
                 type="checkbox"
@@ -73,7 +71,7 @@ const SignIn = () => {
               <label for="remember-me">Remember me</label>
             </div>
 
-            <button class="sign-in-button">Sign In</button>
+            <button className="sign-in-button">Sign In</button>
             <ToastContainer />
           </form>
         </section>

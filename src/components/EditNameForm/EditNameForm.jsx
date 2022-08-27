@@ -36,7 +36,7 @@ const EditNameForm = (props) => {
 
   return (
     <form onSubmit={(e) => handleForm(e)}>
-      <div class="edit-wrapper">
+      <div className="edit-wrapper">
         <div>
           <label for="user-firstname"></label>
           <input type="text" placeholder={props.firstName} id="user-firstname" value={userNewName.firstName} onChange={(e) => setUserNewName({ ...userNewName, firstName: e.target.value })} />
@@ -46,11 +46,11 @@ const EditNameForm = (props) => {
           <input type="text" placeholder={props.lastName} id="user-lastname" value={userNewName.lastName} onChange={(e) => setUserNewName({ ...userNewName, lastName: e.target.value })} />
         </div>
       </div>
-      <div class="btn-edit-wrapper">
-        <button type="submit" class="save-button">
+      <div className="btn-edit-wrapper">
+        <button type="submit" className="save-button">
           Save
         </button>
-        <button class="cancel-button">Cancel</button>
+        <button className="cancel-button">Cancel</button>
       </div>
     </form>
   );

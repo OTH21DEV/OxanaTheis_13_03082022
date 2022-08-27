@@ -17,7 +17,7 @@ const Transactions = () => {
   return (
     <div>
       <Header />
-      <main style={{ display: "flex", alignItems: "center", flexDirection: "column" }} class="main bg-dark">
+      <main style={{ display: "flex", alignItems: "center", flexDirection: "column" }} className="main bg-dark">
         <AccountSection style={{ width: "100%", textAlign: "center", borderBottom: "solid #98a3b0 1px" }} title={checkSectionTitle} amount={checkAmount} content={availableBalance} />
         <TransactionTable />
       </main>

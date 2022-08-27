@@ -30,15 +30,15 @@ const AccountSection = (props) => {
   }
 
   return (
-    <section class="account" style={props.style}>
-      <div class="account-content-wrapper">
-        <h3 class="account-title">{props.title}</h3>
-        <p class="account-amount">{props.amount}</p>
-        <p class="account-amount-description">{props.content}</p>
+    <section className="account" style={props.style}>
+      <div className="account-content-wrapper">
+        <h3 className="account-title">{props.title}</h3>
+        <p className="account-amount">{props.amount}</p>
+        <p className="account-amount-description">{props.content}</p>
       </div>
-      <div class="account-content-wrapper cta">
+      <div className="account-content-wrapper cta">
         {page === "dashboard" ? (
-          <button class="transaction-button" onClick={(e) => handleBtn(e)}>
+          <button className="transaction-button" onClick={(e) => handleBtn(e)}>
             View transactions
           </button>
         ) : (
