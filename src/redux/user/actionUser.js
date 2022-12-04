@@ -6,13 +6,13 @@ import propTypes from "prop-types";
  * Get user data action
  * @param {Object} data Contains user data information from API
  * @returns {Object}
- */
-const getUserDataSuccess = (data) => {
+ */const getUserDataSuccess = (data) => {
   return {
     type: GET_USER_DATA_SUCCESS,
     payload: data,
   };
 };
+
 
 /**
  * Update user data action
@@ -37,7 +37,8 @@ export const getUserDataFromApi = (receivedToken) => {
       //post(url, data, config)
 
       .post(
-        `http://localhost:3001/api/v1/user/profile`,
+      //  `http://localhost:3001/api/v1/user/profile`,
+      `https://vps-7e7110d5.vps.ovh.ca/api/v1/user/profile`,
         { receivedToken },
         {
           headers: {
@@ -70,7 +71,8 @@ export const updateUserData = (receivedToken, updatedUserName) => {
     axios
       //post(url, data, config)
 
-      .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
+    //  .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
+      .put(`https://vps-7e7110d5.vps.ovh.ca/api/v1/user/profile`, updatedUserName, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
           "Content-Type": "application/json",

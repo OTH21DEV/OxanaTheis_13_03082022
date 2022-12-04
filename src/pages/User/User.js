@@ -188,7 +188,7 @@ const User = () => {
         <form onSubmit={(e) => handleForm(e)}>
           <div className="edit-wrapper">
             <div className="firstname-formData">
-              <label for="firstname-user"></label>
+              <label htmlFor="firstname-user"></label>
               <input
                 type="text"
                 placeholder={state.firstName}
@@ -202,7 +202,7 @@ const User = () => {
               <span className="error"></span>
             </div>
             <div className="lastname-formData">
-              <label for="lastname-user"></label>
+              <label htmlFor="lastname-user"></label>
               <input
                 type="text"
                 placeholder={state.lastName}

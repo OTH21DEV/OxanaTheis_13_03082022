@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
   userInformation: reducerUser,
 });
 
+
 //Creation de store en rajoutant en 2eme parametre applyMiddleware pour gerer asynchrone
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
