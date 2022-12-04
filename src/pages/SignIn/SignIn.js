@@ -34,7 +34,7 @@ const SignIn = () => {
   let navigate = useNavigate();
   useEffect(() => {
     if (state.token) {
-      navigate(`./dashboard`);
+      navigate(`/dashboard`);
     } 
    
   });
