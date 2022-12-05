@@ -38,7 +38,7 @@ export const getUserDataFromApi = (receivedToken) => {
 
       .post(
       //  `http://localhost:3001/api/v1/user/profile`,
-      `https://vps-7e7110d5.vps.ovh.ca/api/v1/user/profile`,
+      `https://bank13.oxawebdev.com/api/v1/user/profile`,
         { receivedToken },
         {
           headers: {
