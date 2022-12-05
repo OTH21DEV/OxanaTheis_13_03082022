@@ -72,7 +72,7 @@ export const updateUserData = (receivedToken, updatedUserName) => {
       //post(url, data, config)
 
     //  .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
-      .put(`https://vps-7e7110d5.vps.ovh.ca/api/v1/user/profile`, updatedUserName, {
+      .put(`https://bank13.oxawebdev.com/api/v1/user/profile`, updatedUserName, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
           "Content-Type": "application/json",

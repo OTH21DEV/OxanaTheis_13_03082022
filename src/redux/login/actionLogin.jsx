@@ -43,7 +43,7 @@ export const getTokenFromApi = (userCredentials, rememberMe) => {
 
      // .post(`http://localhost:3001/api/v1/user/login`, JSON.stringify(userCredentials, rememberMe), { headers: { "Content-Type": "application/json" } })
 
-.post(`https://vps-7e7110d5.vps.ovh.ca/api/v1/user/login`, JSON.stringify(userCredentials, rememberMe), { headers: { "Content-Type": "application/json" } })
+.post(`https://bank13.oxawebdev.com/api/v1/user/login`, JSON.stringify(userCredentials, rememberMe), { headers: { "Content-Type": "application/json" } })
       //answer from api: status, message , body
 
       .then((response) => {
