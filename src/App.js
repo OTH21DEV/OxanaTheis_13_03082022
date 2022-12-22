@@ -16,17 +16,17 @@ function App() {
       <div className="App">
         <Router>
           <Routes>
-            <Route exact path="/" element={<Home />}></Route>
-            <Route path="/signin" element={<SignIn />}></Route>
+            <Route exact path="/" component={<Home />}></Route>
+            <Route path="/signin" component={<SignIn />}></Route>
 
-            <Route element={<PrivateRoutes />}>
-              <Route path="/dashboard" element={<User />}></Route>
-              <Route path="/transactions/bankchecking" element={<Transactions />}></Route>
-              <Route path="/transactions/banksavings" element={<TransactionsBankSavings />}></Route>
-              <Route path="/transactions/bankcreditcard" element={<TransactionsCreditCard />}></Route>
+            <Route component={<PrivateRoutes />}>
+              <Route path="/dashboard" component={<User />}></Route>
+              <Route path="/transactions/bankchecking" component={<Transactions />}></Route>
+              <Route path="/transactions/banksavings" component={<TransactionsBankSavings />}></Route>
+              <Route path="/transactions/bankcreditcard" component={<TransactionsCreditCard />}></Route>
             </Route>
 
-            <Route path="*" element={<Error />}></Route>
+            <Route path="*" component={<Error />}></Route>
           </Routes>
         </Router>
       </div>
