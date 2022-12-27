@@ -9,6 +9,7 @@ import TransactionsBankSavings from "./pages/TransactionsBankSavings/Transaction
 import TransactionsCreditCard from "./pages/TransactionsCreditCard/TransactionsCreditCard";
 import Error from "./components/Error/Error";
 import PrivateRoutes from "./utils/PrivateRoutes";
+//change component vers element, supp exact pour Home
 
 function App() {
   return (
@@ -16,17 +17,17 @@ function App() {
       <div className="App">
         <Router>
           <Routes>
-            <Route exact path="/" component={<Home />}></Route>
-            <Route path="/signin" component={<SignIn />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/signin" element={<SignIn />}></Route>
 
-            <Route component={<PrivateRoutes />}>
-              <Route path="/dashboard" component={<User />}></Route>
-              <Route path="/transactions/bankchecking" component={<Transactions />}></Route>
-              <Route path="/transactions/banksavings" component={<TransactionsBankSavings />}></Route>
-              <Route path="/transactions/bankcreditcard" component={<TransactionsCreditCard />}></Route>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard" element={<User />}></Route>
+              <Route path="/transactions/bankchecking" element={<Transactions />}></Route>
+              <Route path="/transactions/banksavings" element={<TransactionsBankSavings />}></Route>
+              <Route path="/transactions/bankcreditcard" element={<TransactionsCreditCard />}></Route>
             </Route>
 
-            <Route path="*" component={<Error />}></Route>
+            <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>
       </div>
