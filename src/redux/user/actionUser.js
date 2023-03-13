@@ -6,13 +6,12 @@ import propTypes from "prop-types";
  * Get user data action
  * @param {Object} data Contains user data information from API
  * @returns {Object}
- */const getUserDataSuccess = (data) => {
+ */ const getUserDataSuccess = (data) => {
   return {
     type: GET_USER_DATA_SUCCESS,
     payload: data,
   };
 };
-
 
 /**
  * Update user data action
@@ -37,8 +36,9 @@ export const getUserDataFromApi = (receivedToken) => {
       //post(url, data, config)
 
       .post(
-      //  `http://localhost:3001/api/v1/user/profile`,
-      `https://bank13.oxawebdev.com/api/v1/user/profile`,
+        //  `http://localhost:3001/api/v1/user/profile`,
+        //  `https://bank13.oxawebdev.com/api/v1/user/profile`,
+        `https://argent-bank-p13.herokuapp.com/api/v1/user/profile`,
         { receivedToken },
         {
           headers: {
@@ -71,8 +71,10 @@ export const updateUserData = (receivedToken, updatedUserName) => {
     axios
       //post(url, data, config)
 
-    //  .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
-      .put(`https://bank13.oxawebdev.com/api/v1/user/profile`, updatedUserName, {
+      //  .put(`http://localhost:3001/api/v1/user/profile`, updatedUserName, {
+      // .put(`https://bank13.oxawebdev.com/api/v1/user/profile`, updatedUserName, {
+
+      .put(`https://argent-bank-p13.herokuapp.com/api/v1/user/profile`, updatedUserName, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
           "Content-Type": "application/json",
@@ -82,7 +84,7 @@ export const updateUserData = (receivedToken, updatedUserName) => {
       //answer from api: status, message , body
 
       .then((response) => {
-       // console.log(response);
+        // console.log(response);
 
         dispatch(editUserData(updatedUserName));
       })

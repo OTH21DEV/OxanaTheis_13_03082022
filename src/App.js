@@ -10,7 +10,18 @@ import TransactionsCreditCard from "./pages/TransactionsCreditCard/TransactionsC
 import Error from "./components/Error/Error";
 import PrivateRoutes from "./utils/PrivateRoutes";
 //change component vers element, supp exact pour Home
-
+/**
+ * 
+ *      <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard" element={<User />}></Route>
+              <Route path="/transactions/bankchecking" element={<Transactions />}></Route>
+              <Route path="/transactions/banksavings" element={<TransactionsBankSavings />}></Route>
+              <Route path="/transactions/bankcreditcard" element={<TransactionsCreditCard />}></Route>
+            </Route>
+ * 
+ * 
+ * 
+ */
 function App() {
   return (
     <Provider store={store}>

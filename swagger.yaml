@@ -212,6 +212,10 @@ paths:
       produces:
         - application/json
       responses:
+        '200':
+          description: "User transaction retrieved successully"
+          schema:
+            $ref: '#/definitions/TransactionId'  
         '400':
           description: "Invalid user transaction ID supplied"
         '401':
