@@ -19,8 +19,9 @@ body {
 
 .bg-dark {
   background-color: #12002b;
-  height:80vh;
+  min-height:80vh;
   padding-top:10px;
+  padding-bottom:20px;
 }
 
 .sr-only {
