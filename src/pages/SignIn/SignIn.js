@@ -20,8 +20,8 @@ const SignIn = () => {
 
   //set user - information will be set from input fields of form for dispatch
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "steve@rogers.com",
+    password: "password456",
   });
 
   //dispatch after form submit providing the user credentials and value of check box
@@ -52,7 +52,7 @@ const SignIn = () => {
           <form onSubmit={(e) => handleForm(e)}>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" value={user.name} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+              <input type="text" id="username" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
